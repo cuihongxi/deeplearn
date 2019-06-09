@@ -19,10 +19,10 @@
 #define	malloc					CUI_MALLOC
 #define	_free						FreeCUI_MALLOC
 
-#define		MAT_PRINT			MAT_LOG("%x	",*((matDAT*)((matDAT*)mat+sizeof(matrixStr) + L*mat->list + H)))	
+#define		MAT_PRINT			MAT_LOG("%f	",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H))	
 #define		pi	3.1415926
 
-typedef	 u8  matDAT;					//定义矩阵保存的数据类型
+typedef	 float  matDAT;					//定义矩阵保存的数据类型
 
 typedef struct
 {

@@ -29,7 +29,7 @@ void matApendDat(matrixStr* mat , matDAT* dat)
 	{
 		for(H = 0; H < mat->list; H ++)
 		{
-			*(matDAT*)(mat+sizeof(matrixStr) + L*mat->list + H) = *dat;
+			*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H) = *dat;
 			dat ++;
 		}
 		
@@ -61,7 +61,8 @@ void PrintMat(matrixStr* mat)
 matDAT Get_Mat(matrixStr* mat,u32 line,u32 list)
 {
 	if(line < mat->line && list < mat->list )
-		return *(matDAT*)(&mat->list + 1 + line*mat->list + list);
+		return 	*((matDAT*)((u8*)mat+sizeof(matrixStr)) + line*mat->list + list);
+
 	else return (matDAT)-1;
 }
 
@@ -69,7 +70,7 @@ matDAT Get_Mat(matrixStr* mat,u32 line,u32 list)
 matDAT* Get_MatAddr(matrixStr* mat,u32 line,u32 list)
 {
 	if(line < mat->line && list < mat->list )
-		return (matDAT*)(&mat->list + 1 + line*mat->list + list);
+		return ((matDAT*)((u8*)mat+sizeof(matrixStr))) + line*mat->list + list;
 	else return (matDAT*)-1;
 }
 
@@ -87,7 +88,8 @@ matrixStr* matAdd(matrixStr* a,matrixStr* b)
 		{
 			for(H = 0; H < a->list; H ++)
 			{
-				*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(a,L,H) +  Get_Mat(b,L,H);
+				*((matDAT*)((u8*)mat+sizeof(matrixStr)) +  L*mat->list + H) = Get_Mat(a,L,H) +  Get_Mat(b,L,H);
+					
 			}		
 		}
 		return mat;
@@ -105,9 +107,8 @@ matDAT GetMat_MultAdd(matrixStr* a,matrixStr* b,u32 aline,u32 blist)
 	for(i=0;i<a->list;i++)
 	{	
 		dat += (matDAT)Get_Mat(a,aline,i) *  (matDAT)Get_Mat(b,i,blist);
-	//	printf("dat = %f\r\n",dat);
 	}
-	//printf("->dat = %f\r\n",dat);
+
 	return dat;
 }
 
