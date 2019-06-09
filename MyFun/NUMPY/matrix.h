@@ -17,11 +17,12 @@
 #define	ERROR_MAT_LOG					printf
 
 #define	malloc					CUI_MALLOC
-#define	free						FreeCUI_MALLOC
+#define	_free						FreeCUI_MALLOC
 
-#define		MAT_PRINT			MAT_LOG("%f	",*((matDAT*)(&mat->list+ 1 + L*mat->list + H)))	
+#define		MAT_PRINT			MAT_LOG("%x	",*((matDAT*)((matDAT*)mat+sizeof(matrixStr) + L*mat->list + H)))	
+#define		pi	3.1415926
 
-typedef	 float  matDAT;					//定义矩阵保存的数据类型
+typedef	 u8  matDAT;					//定义矩阵保存的数据类型
 
 typedef struct
 {
@@ -38,7 +39,7 @@ typedef enum{
 	add,
 	sub,
 	mul,
-	div,
+	divi,
 }Algorithm;	//运算法则
 
 /**
@@ -63,6 +64,10 @@ u32 GetMatLength(matrixStr* mat);																// 获取矩阵大小
 matrixStr* matSub(matrixStr* a,matrixStr* b);										// 矩阵减法
 void matAlgorithm(matrixStr* mat,float num,Algorithm alg);			// 矩阵与num的运算
 void matIteraAlgorithm(matrixStr* a,matrixStr* b,Algorithm alg);// 矩阵与矩阵迭代的运算，不产生新空间，结果覆盖第一个矩阵
+
+matrixStr* matRote(matrixStr* mat_sorce,float radian);					// 矩阵旋转,radian弧度，顺时针为正
+matrixStr* matZoom(matrixStr* mat_sorce,float xtimes,float ytimes);// 矩阵缩放,xtimes，ytimes
+
 
 #endif
 

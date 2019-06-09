@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include "math.h"
 
 
 // 申请一个矩阵
@@ -18,7 +19,7 @@ matrixStr* matMalloc(u32 line,u32 list)
 	}
 }
 
-//添加数据
+//添加数据&mat->list + 1
 void matApendDat(matrixStr* mat , matDAT* dat)
 {
 	u32 L = 0;	//行
@@ -28,7 +29,7 @@ void matApendDat(matrixStr* mat , matDAT* dat)
 	{
 		for(H = 0; H < mat->list; H ++)
 		{
-			*(matDAT*)(&mat->list + 1 + L*mat->list + H) = *dat;
+			*(matDAT*)(mat+sizeof(matrixStr) + L*mat->list + H) = *dat;
 			dat ++;
 		}
 		
@@ -42,7 +43,7 @@ void PrintMat(matrixStr* mat)
 {
 	u32 L = 0;	//行
 	u32 H = 0;	//列
-
+	MAT_LOG("{\r\n");
 	for(L = 0; L < mat->line; L ++)
 	{
 		MAT_LOG("[");
@@ -53,6 +54,7 @@ void PrintMat(matrixStr* mat)
 		}
 		MAT_LOG("]\r\n");
 	}
+	MAT_LOG("}\r\n");
 }
 
 //获取一个矩阵的元素
@@ -60,7 +62,7 @@ matDAT Get_Mat(matrixStr* mat,u32 line,u32 list)
 {
 	if(line < mat->line && list < mat->list )
 		return *(matDAT*)(&mat->list + 1 + line*mat->list + list);
-	else return -1;
+	else return (matDAT)-1;
 }
 
 //获取矩阵元素单元的地址
@@ -326,7 +328,7 @@ void matAlgorithm(matrixStr* mat,float num,Algorithm alg)
 					*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(mat,L,H) - num;
 				else if(alg == mul)
 					*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(mat,L,H) * num;
-				else if(alg == div)
+				else if(alg == divi)
 					*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(mat,L,H) / num;
 				
 			}		
@@ -359,5 +361,39 @@ void matIteraAlgorithm(matrixStr* a,matrixStr* b,Algorithm alg)
 	}else ERROR_MAT_LOG("错误：两个矩阵行列数不相等!\r\n");
 
 }
+
+//矩阵旋转,radian弧度，顺时针为正
+matrixStr* matRote(matrixStr* mat_sorce,float radian)
+{
+	matrixStr* mat = matMalloc(mat_sorce->line,mat_sorce->list);
+	matrixStr* mat2 = matMalloc(2,2);
+	matDAT data[] = {
+		cos(radian), -sin(radian),
+		sin(radian),cos(radian),
+	};
+	matApendDat(mat2,data);
+	mat = matDot(mat_sorce,mat2);
+	_free(mat2);
+	return mat;
+	
+}
+
+//矩阵缩放,xtimes，ytimes
+matrixStr* matZoom(matrixStr* mat_sorce,float xtimes,float ytimes)
+{
+	matrixStr* mat = matMalloc(mat_sorce->line,mat_sorce->list);
+	matrixStr* mat2 = matMalloc(2,2);
+	matDAT data[] = {
+		xtimes, 0,
+		0,ytimes,
+	};
+	matApendDat(mat2,data);
+	mat = matDot(mat_sorce,mat2);
+	_free(mat2);
+	return mat;
+	
+}
+
+
 
 

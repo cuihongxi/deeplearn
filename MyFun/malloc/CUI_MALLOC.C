@@ -164,12 +164,19 @@ void* CUI_MALLOC(u32  leng_th)
 	u8* p;
 	if(leng_th <= (Malloc_MINI*Malloc_MINIINDEX))
 	{
+	
 		p = CUI_MALLOCMini(leng_th);
+		Malloc_Log("已经申请小内存,地址：%#X\r\n",(u32)p);
 //		printf("--------------p = %#x\r\n",(u32)p);
 		return (void*)p;
 	}
 	else
-	return (void*)MallocGE(leng_th,(u8*)&CUI_MALLOCArray,Malloc_UNIT,Malloc_MAXSIZE,indexMalloc);
+	{
+		p = MallocGE(leng_th,(u8*)&CUI_MALLOCArray,Malloc_UNIT,Malloc_MAXSIZE,indexMalloc);
+		Malloc_Log("已经申请大内存,地址：%#X\r\n",(u32)p);
+		return (void*)p;
+	}
+	
 }
 
 /************************************************************************************
@@ -229,44 +236,47 @@ Flag_Status    FreeCUI_MALLOC(void* Malloc)
 	u8* pBuff = pFirstMini;					// 当前链表首地址
 	u8* pBack = pFirstMini;					// 前一个链表首地址
 	Flag_Status status ;						// 执行状态
-	
+	Malloc_Log("释放内存，地址: %#X\r\n",(u32)Malloc);
 	// 判断 Malloc 在不在小内存池范围内
-	do{
-	//	printf("Malloc = %#x,pBuff = %#x,(u32)&(((MiniMallocStr*)pBuff)->dat[Malloc_MINI*Malloc_MINIINDEX]) = %#x\r\n",(u32)Malloc,(u32)pBuff,(u32)&(((MiniMallocStr*)pBuff)->dat[Malloc_MINI*Malloc_MINIINDEX]));
-		if((u32)Malloc >= (u32)pBuff && ((u32)Malloc <= (u32)&(((MiniMallocStr*)pBuff)->dat[Malloc_MINI*Malloc_MINIINDEX])))
-		{
-			// 释放小内存池中的内存
-			status = Free_MallocGE((u8*)Malloc,pBuff,Malloc_MINI,Malloc_UNIT-8,(u8*)&(((MiniMallocStr*)pBuff)->index));			
-			if(status == ISOK)
-			{// 如果小内存池为空，则在大内存池中释放小内存池
-				if(((MiniMallocStr*)pBuff)->index == 0)
-				{
-					Malloc_Log("释放小内存池中。。。。。\r\n");
-					// 如果是首地址则变更pFirstMini指针
-					if(pBuff == pFirstMini)
+	if(pFirstMini != 0)
+	{
+		do{
+			Malloc_Log("Malloc = %#x,pBuff = %#x,(u32)&(((MiniMallocStr*)pBuff)->dat[Malloc_MINI*Malloc_MINIINDEX]) = %#x\r\n",\
+					(u32)Malloc,(u32)pBuff,(u32)&(((MiniMallocStr*)pBuff)->dat[Malloc_MINI*Malloc_MINIINDEX]));
+			if((u32)Malloc >= (u32)pBuff && ((u32)Malloc <= (u32)&(((MiniMallocStr*)pBuff)->dat[Malloc_MINI*Malloc_MINIINDEX])))
+			{
+				// 释放小内存池中的内存
+				status = Free_MallocGE((u8*)Malloc,pBuff,Malloc_MINI,Malloc_UNIT-8,(u8*)&(((MiniMallocStr*)pBuff)->index));			
+				if(status == ISOK)
+				{// 如果小内存池为空，则在大内存池中释放小内存池
+					if(((MiniMallocStr*)pBuff)->index == 0)
 					{
-						Malloc_Log("变更pFirstMini指针。。。。。\r\n");
-						if(((MiniMallocStr*)pBuff)->pNext == 0) pFirstMini = 0;	
-						else pFirstMini = ((MiniMallocStr*)pBuff)->pNext;
+						Malloc_Log("释放小内存池中。。。。。\r\n");
+						// 如果是首地址则变更pFirstMini指针
+						if(pBuff == pFirstMini)
+						{
+							Malloc_Log("变更pFirstMini指针。。。。。\r\n");
+							if(((MiniMallocStr*)pBuff)->pNext == 0) pFirstMini = 0;	
+							else pFirstMini = ((MiniMallocStr*)pBuff)->pNext;
+						}
+						else
+						{									
+							while(((MiniMallocStr*)pBack)->pNext != pBuff) pBack = ((MiniMallocStr*)pBack)->pNext;// 找到前一个链表
+							((MiniMallocStr*)pBack)->pNext = ((MiniMallocStr*)pBuff)->pNext; // 变更前一个链表中保存的地址	
+						}
+						//大内存池中释放该内存
+						if(Free_MallocGE(pBuff,(u8*)&CUI_MALLOCArray,Malloc_UNIT,Malloc_MAXSIZE,indexMalloc)!=ISOK)
+							Malloc_Log("大内存池释放小内存池失败\r\n");
 					}
-					else
-					{									
-						while(((MiniMallocStr*)pBack)->pNext != pBuff) pBack = ((MiniMallocStr*)pBack)->pNext;// 找到前一个链表
-						((MiniMallocStr*)pBack)->pNext = ((MiniMallocStr*)pBuff)->pNext; // 变更前一个链表中保存的地址	
-					}
-					//大内存池中释放该内存
-					if(Free_MallocGE(pBuff,(u8*)&CUI_MALLOCArray,Malloc_UNIT,Malloc_MAXSIZE,indexMalloc)!=ISOK)
-						Malloc_Log("大内存池释放小内存池失败\r\n");
 				}
-			}
-			else
-				Malloc_Log("释放小内存池失败\r\n");
-			return status;
-			
-		}else pBuff = ((MiniMallocStr*)pBuff)->pNext;
-		//printf("pBuff = %#x\r\n",(u32)pBuff);
-	}while(pBuff != 0);
-	
+				else
+					Malloc_Log("释放小内存池失败\r\n");
+				return status;
+				
+			}else pBuff = ((MiniMallocStr*)pBuff)->pNext;
+			Malloc_Log("pBuff = %#x\r\n",(u32)pBuff);
+		}while(pBuff != 0);	
+	}
 	// 释放大内存池
 	Malloc_Log("释放大内存池\r\n");
 	return Free_MallocGE((u8*)Malloc,(u8*)&CUI_MALLOCArray,Malloc_UNIT,Malloc_MAXSIZE,indexMalloc);
