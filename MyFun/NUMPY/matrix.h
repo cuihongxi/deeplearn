@@ -28,7 +28,7 @@
 typedef	 float  matDAT;					//定义矩阵保存的数据类型
 #define		MAT_PRINT			MAT_LOG("%f,	",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H))		
 #else 
-typedef	 u32  matDAT;					//定义矩阵保存的数据类型
+typedef	 u8  matDAT;					//定义矩阵保存的数据类型
 #define		MAT_PRINT			MAT_LOG("%d	",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H))	
 	
 #endif
@@ -58,6 +58,8 @@ typedef enum{
 
 matrixStr* matMalloc(u32 line,u32 list);												// 申请一个矩阵
 void matApendDat(matrixStr* mat , matDAT* dat); 								// 添加数据
+
+void matApendDatU8(matrixStr* mat , u8* dat);										//添加u8类型数据
 void PrintMat(matrixStr* mat);																	// 打印一个矩阵
 matDAT Get_Mat(matrixStr* mat,u32 line,u32 list);								// 获取一个矩阵的元素
 matDAT* Get_MatAddr(matrixStr* mat,u32 line,u32 list);					// 获取矩阵元素单元的地址

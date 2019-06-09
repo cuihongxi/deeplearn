@@ -5,6 +5,7 @@ void numpy_Init(numpy* np)
 {
 	np->array = matMalloc;
 	np->apendData = matApendDat;
+	np->apendDataU8 = matApendDatU8;
 	np->printMat = PrintMat;
 	np->T = matrix_T;
 	np->ones = matrix_One;

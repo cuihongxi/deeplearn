@@ -14,6 +14,7 @@ typedef struct
 {
 	matrixStr* (*array)(u32 line,u32 list);							// 申请一个矩阵，注：不用需要释放内存
 	void (*apendData)(matrixStr* mat , matDAT* dat);		// 给矩阵添加数据	
+	void (*apendDataU8)(matrixStr* mat , u8* dat);
 	void (*printMat)(matrixStr* );											// 打印函数
 	matrixStr* (*T)(matrixStr* );												// 转置，注：不用需要释放内存
 	matrixStr* (*ones)(u32 line,u32 list);							// 生成一个矩阵，并全部赋值成1

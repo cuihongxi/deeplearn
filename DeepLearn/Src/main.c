@@ -154,7 +154,7 @@ int main(void)
 	printf("\r\nstart:\r\n");
 	
 	printf("___________________________\r\n");
-	miniData*  mini = MinistGetData(20,40);	
+	miniData*  mini = MinistGetData(0,1);	
 	
 	numpy np;
 	numpy_Init(&np);

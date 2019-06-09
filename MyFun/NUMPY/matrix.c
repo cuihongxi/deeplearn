@@ -19,7 +19,7 @@ matrixStr* matMalloc(u32 line,u32 list)
 	}
 }
 
-//添加数据(u8*)mat+sizeof(matrixStr))
+//添加数据
 void matApendDat(matrixStr* mat , matDAT* dat)
 {
 	u32 L = 0;	//行
@@ -36,6 +36,22 @@ void matApendDat(matrixStr* mat , matDAT* dat)
 	}
 }
 
+//添加u8类型数据
+void matApendDatU8(matrixStr* mat , u8* dat)
+{
+	u32 L = 0;	//行
+	u32 H = 0;	//列
+
+	for(L = 0; L < mat->line; L ++)
+	{
+		for(H = 0; H < mat->list; H ++)
+		{
+			*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H) = *dat;
+			dat ++;
+		}
+		
+	}
+}
 
 
 //打印一个矩阵

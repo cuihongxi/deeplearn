@@ -36,21 +36,26 @@ u32 GetBigEndDat(u32* buff)
 		size_fea = num * feaInf.columns * feaInf.rows;											
 		bw = sizeof(featureStr) + startpic * feaInf.columns * feaInf.rows;	//偏移文件指针
 		matrixStr* featureMat = matMalloc(num,feaInf.columns * feaInf.rows);//申请保存特征数据矩阵
+		u8* featureBuf = malloc(size_fea);//申请保存特征数据缓存
 		CheckError_Handler(f_open (fdst,FILE_TRAIN_FEATURESET,FA_READ));		//打开特征训练集文件		
 		CheckError_Handler(f_lseek(fdst,bw));																//偏移文件指针	
-		CheckError_Handler(f_read(fdst,(u8*)featureMat + sizeof(matrixStr),size_fea,&bw));								//读num张数据	
+		CheckError_Handler(f_read(fdst,featureBuf,size_fea,&bw));								//读num张数据			
+		matApendDatU8(featureMat,featureBuf);//拷贝到矩阵
 		minidata->featureData = featureMat;
 		f_close(fdst);
+		_free(featureBuf);
 		
 		size_fea = num ;																										//label大小										
 		bw = sizeof(labelStr) + startpic;																		//偏移文件指针
 		matrixStr* labelMat = matMalloc(num,1);															//申请保存结果数据矩阵
+		u8* labelBuf = malloc(size_fea);																		//申请保存结果数据缓存
 		CheckError_Handler(f_open (fdst,FILE_TRAIN_LABELESET,FA_READ));			//打开特征训练集文件		
 		CheckError_Handler(f_lseek(fdst,bw));																//偏移文件指针	
-		CheckError_Handler(f_read(fdst,(u8*)labelMat + sizeof(matrixStr),size_fea,&bw));								//读num张数据	
+		CheckError_Handler(f_read(fdst,labelBuf,size_fea,&bw));							//读num张数据	
+		matApendDatU8(labelMat,labelBuf);																		//拷贝到矩阵
 		minidata->labelData = labelMat;
 		f_close(fdst);
-		
+		_free(labelBuf);
 		minidata->num = num;
 		minidata->columns = feaInf.columns;
 		minidata->rows = feaInf.rows;
