@@ -58,6 +58,7 @@
 /* USER CODE BEGIN Includes */
 #include "matrix.h"
 #include "numpy.h"
+#include "GradientDescent.h"
 
 /* USER CODE END Includes */
 
@@ -78,38 +79,6 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN 0 */
 
-//梯度下降算法
-matrixStr* GradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* feature,matrixStr* weight,matrixStr* label)
-	{
-		matrixStr* result;
-		matrixStr* featureMatrix_T = np->T(featureMatrix);
-		matrixStr* dot = np->dot(featureMatrix,weight);
-		matrixStr* sub = np->sub(dot,label);
-		result = np->dot(featureMatrix_T,sub);
-    np->alg(result,feature->line,divi);
-		np->alg(result,2,mul);
-		
-		free(featureMatrix_T);
-		free(dot);
-		free(sub);
-    return result ;  //结果矩阵，[0][0]是对b的导数，[1][0]是对m的导数	
-	}
-	
-	//训练
-void Train(numpy* np,matrixStr* featureMatrix,matrixStr* feature,matrixStr* weight,matrixStr* label,float learnRate,u32 times)
-{
-	u32 i =0;
-	matrixStr* res;
-  for(i=0;i<times;i++)
-	{
-		res = GradientDescent(np,featureMatrix,feature,weight,label);
-		np->alg(res,learnRate,mul);
-		np->iteraAlg(weight,res,sub);
-		free(res);
-	}
-    printf("-----weight---------\r\n");
-    np->printMat(weight);
-}
 
 /* USER CODE END 0 */
 
@@ -149,35 +118,60 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-	printf("\r\nstart:\r\n");
-
-	matDAT data[] = {
-	  80,200,
-    95,230,
-    104,245,
-    112,274,
-    125,259,
-    135,262
-	};
+	printf("\r\nstart:\r\n");	
 	
 	numpy np ;
 	numpy_Init(&np);
-	
-	matrixStr* mat1 = np.array(6,2);
+/*
+	matDAT data[] = {
+    5,1,0,0,
+    15,1,0,0,
+    25,0,1,0,
+    35,0,1,0,
+    45,0,1,0,
+    55,0,0,1,
+    65,0,0,1,
+	};
+	matrixStr* mat1 = np.array(7,4);
 	np.apendData(mat1,data);
-	
 	matrixStr* feature = np.cutOut(mat1,vertical,0,0);	//特征
-	matrixStr* mat_one = np.ones(6,1);
-	matrixStr* featureMatrix = np.append(feature,mat_one,vertical);
-	free(mat_one);
-	matrixStr* label = np.cutOut(mat1,vertical,1,1);		//结果
+	matrixStr* label = np.cutOut(mat1,vertical,1,3);		//结果
+
+	float learnRate = 0.001;								//学习率
 	
-	float learnRate = 0.00001;								//学习率
-	
-	matrixStr* weight = np.ones(2,1);					//一个[b，m]T的矩阵	
-	Train(&np,featureMatrix,feature,weight,label,learnRate,10000000);
-	
+
+	matrixStr* weight = Train(LogicGradientDescent,&np,feature,label,learnRate,100000);
+	printf("-----weight---------\r\n");
+  np.printMat(weight);
+	*/
+//测试
+
+	matDAT weightDat[] = {
+		-0.720796,	-0.000003,	0.400517	,
+		14.153803,	-0.287558,	-19.907799	,
+	};
 		
+//	matDAT weightDat[] = {
+//		-0.9697223,	0.02997379,	0.60928238	,
+//		19.13764586,	-0.15720643,	-30.35856277	,
+//	};
+		
+	matrixStr* weight = np.array(2,3);
+	np.apendData(weight,weightDat);
+	
+	matDAT testDat[] = {
+    3,1,
+    23,1,
+    95,1
+	};
+		
+	matrixStr* matTest = np.array(3,2);
+	np.apendData(matTest,testDat);
+
+	matrixStr* test = Test(matSoftmax,matTest,weight);
+	printf("-----test---------\r\n");
+	np.printMat(test);
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */

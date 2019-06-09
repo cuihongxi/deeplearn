@@ -6,7 +6,7 @@
 matrixStr* matMalloc(u32 line,u32 list)
 {
 	//动态申请一片内存，并多申请两个用来保存行列数
-	matrixStr* mat = (matrixStr*)malloc((line*list+2)*(sizeof(matDAT)/sizeof(u8)));
+	matrixStr* mat = (matrixStr*)malloc((line*list)*(sizeof(matDAT)) + sizeof(matrixStr));
 	if(mat == 0) 
 	{
 		ERROR_MAT_LOG("ERROR:动态内存申请失败\r\n");
@@ -19,7 +19,7 @@ matrixStr* matMalloc(u32 line,u32 list)
 	}
 }
 
-//添加数据&mat->list + 1
+//添加数据(u8*)mat+sizeof(matrixStr))
 void matApendDat(matrixStr* mat , matDAT* dat)
 {
 	u32 L = 0;	//行
@@ -52,7 +52,7 @@ void PrintMat(matrixStr* mat)
 			
 			MAT_PRINT;
 		}
-		MAT_LOG("]\r\n");
+		MAT_LOG("],\r\n");
 	}
 	MAT_LOG("}\r\n");
 }
@@ -72,6 +72,7 @@ matDAT* Get_MatAddr(matrixStr* mat,u32 line,u32 list)
 	if(line < mat->line && list < mat->list )
 		return ((matDAT*)((u8*)mat+sizeof(matrixStr))) + line*mat->list + list;
 	else return (matDAT*)-1;
+	
 }
 
 //矩阵相加
@@ -304,7 +305,8 @@ matrixStr* matSub(matrixStr* a,matrixStr* b)
 		{
 			for(H = 0; H < a->list; H ++)
 			{
-				*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(a,L,H) -  Get_Mat(b,L,H);
+				*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H)	 = Get_Mat(a,L,H) -  Get_Mat(b,L,H);
+				
 			}		
 		}
 		return mat;
@@ -324,13 +326,13 @@ void matAlgorithm(matrixStr* mat,float num,Algorithm alg)
 			for(H = 0; H < mat->list; H ++)
 			{
 				if(alg == add)
-					*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(mat,L,H) + num;
+					*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H)	 = Get_Mat(mat,L,H) + num;
 				else if(alg == sub)
-					*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(mat,L,H) - num;
+					*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H)	 = Get_Mat(mat,L,H) - num;
 				else if(alg == mul)
-					*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(mat,L,H) * num;
+					*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H)	 = Get_Mat(mat,L,H) * num;
 				else if(alg == divi)
-					*(matDAT*)(&mat->list + 1 + L*mat->list + H) = Get_Mat(mat,L,H) / num;
+					*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H)	 = Get_Mat(mat,L,H) / num;
 				
 			}		
 		}
@@ -395,6 +397,66 @@ matrixStr* matZoom(matrixStr* mat_sorce,float xtimes,float ytimes)
 	
 }
 
+//sigmoid函数
+float sigmoid(float x)
+{
+    return (1 / (1 + exp(-x)));
+}
+	
+//矩阵sigmoid函数
+matrixStr* matSigmoid(matrixStr* feature,matrixStr* weight)
+{
+	matrixStr* mat = matDot(feature,weight);
+	u32 L = 0;	// 行
+	u32 H = 0;	// 列
+		for(L = 0; L < mat->line; L ++)
+		{
+			for(H = 0; H < mat->list; H ++)
+			{
+					*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H)	 = sigmoid(Get_Mat(mat,L,H));
+			}		
+		}
+	return mat;
+}
 
 
+//L行取exp对数相加,返回和
+matDAT matAddexp(matrixStr* mat,u32 L)
+{
+	matDAT dat = 0;
+	for(u32 i =0;i<mat->list;i++)
+	{
+		dat += exp(Get_Mat(mat,L,i));
+	}
+		
+//	printf("dat = %f\r\n",dat);
+	return dat;
+}
+//softmax运算
+matrixStr* matSoftmax(matrixStr* feature,matrixStr* weight)
+{
+		matrixStr* mat = matDot(feature,weight);
+		matrixStr* matallexp = matMalloc(mat->line,1);	//保存exp所有之和
+	
+		u32 L = 0;	// 行
+		u32 H = 0;	// 列
 
+			for(L = 0; L < matallexp->line; L ++)
+			{
+				*Get_MatAddr(matallexp,L,0) = matAddexp(mat,L);
+			}
+
+	
+		for(L = 0; L < mat->line; L ++)
+		{
+			for(H = 0; H < mat->list; H ++)
+			{
+			//	printf("exp(Get_Mat(mat,L,H)) = %f,Get_Mat(matallexp,0,H) = %f\r\n",exp(Get_Mat(mat,L,H)),Get_Mat(matallexp,0,H));
+				*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H) = exp(Get_Mat(mat,L,H))/Get_Mat(matallexp,L,0);
+			//	printf("exp(Get_Mat(mat,L,H))/Get_Mat(matallexp,1,H)= %f\r\n",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H));
+					
+			}		
+		}
+		_free(matallexp);
+	return mat;
+}

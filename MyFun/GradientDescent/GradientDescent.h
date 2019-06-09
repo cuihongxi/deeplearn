@@ -17,6 +17,11 @@
 
 
 matrixStr* GradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* weight,matrixStr* label);//梯度下降算法
-matrixStr* Train(numpy* np,matrixStr* feature,matrixStr* label,float learnRate,u32 times);	//训练,返回m,b的矩阵weight
+matrixStr* LogicGradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* weight,matrixStr* label);//逻辑回归梯度下降算法
+
+matrixStr* Train(matrixStr* (*gradientDescent)(numpy*,matrixStr*,matrixStr*,matrixStr*),\
+numpy* np,matrixStr* feature,matrixStr* label,float learnRate,u32 times);			//训练
+
+matrixStr* Test(matrixStr*(*math)(matrixStr*,matrixStr*),matrixStr*feature,matrixStr* weight);//测试
 
 #endif

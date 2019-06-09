@@ -2,6 +2,7 @@
 "deeplearn\startup_stm32f429xx.o"
 "deeplearn\numpy.o"
 "deeplearn\matrix.o"
+"deeplearn\gradientdescent.o"
 "deeplearn\cui_malloc.o"
 "deeplearn\main.o"
 "deeplearn\gpio.o"

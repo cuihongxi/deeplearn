@@ -16,5 +16,7 @@ void numpy_Init(numpy* np)
 	np->sub = matSub;
 	np->alg = matAlgorithm;
 	np->iteraAlg = matIteraAlgorithm;
+	np->sigmoid = matSigmoid;
+	
 }
 

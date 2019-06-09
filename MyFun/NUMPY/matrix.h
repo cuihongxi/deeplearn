@@ -19,10 +19,19 @@
 #define	malloc					CUI_MALLOC
 #define	_free						FreeCUI_MALLOC
 
-#define		MAT_PRINT			MAT_LOG("%f	",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H))	
+
 #define		pi	3.1415926
 
+
+#define		FLOAT 1								//Êı¾İÀàĞÍ×ª»»¿ª¹Ø
+#if FLOAT >0
 typedef	 float  matDAT;					//¶¨Òå¾ØÕó±£´æµÄÊı¾İÀàĞÍ
+#define		MAT_PRINT			MAT_LOG("%f,	",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H))		
+#else 
+typedef	 u32  matDAT;					//¶¨Òå¾ØÕó±£´æµÄÊı¾İÀàĞÍ
+#define		MAT_PRINT			MAT_LOG("%d	",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + L*mat->list + H))	
+	
+#endif
 
 typedef struct
 {
@@ -67,6 +76,8 @@ void matIteraAlgorithm(matrixStr* a,matrixStr* b,Algorithm alg);// ¾ØÕóÓë¾ØÕóµü´
 
 matrixStr* matRote(matrixStr* mat_sorce,float radian);					// ¾ØÕóĞı×ª,radian»¡¶È£¬Ë³Ê±ÕëÎªÕı
 matrixStr* matZoom(matrixStr* mat_sorce,float xtimes,float ytimes);// ¾ØÕóËõ·Å,xtimes£¬ytimes
+matrixStr* matSigmoid(matrixStr* feature,matrixStr* weight);		//¾ØÕósigmoidº¯Êı
+matrixStr* matSoftmax(matrixStr* feature,matrixStr* weight);		//softmaxÔËËã
 
 
 #endif

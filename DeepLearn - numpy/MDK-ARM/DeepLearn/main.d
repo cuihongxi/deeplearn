@@ -48,3 +48,4 @@ deeplearn\main.o: ..\..\MyFun\NUMPY\matrix.h
 deeplearn\main.o: ..\..\MyFun\udata.h
 deeplearn\main.o: ..\..\MyFun\malloc\cui_malloc.h
 deeplearn\main.o: ..\..\MyFun\NUMPY\numpy.h
+deeplearn\main.o: ..\..\MyFun\GradientDescent\GradientDescent.h

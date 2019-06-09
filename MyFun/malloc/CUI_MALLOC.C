@@ -25,7 +25,7 @@ u8* MallocGE(u32  leng_th,u8* mallocArray,u32 malloc_unit,u32 malloc_maxsize,u8*
             length = leng_th/malloc_unit+2;
       else
       length = leng_th/malloc_unit + 3; // 最后一位为0，做每次申请的结束符，清空时识别
-       Malloc_Log("get memory length：%d leng_th = %d\r\n",length,leng_th);        
+      Malloc_Log("get memory length：%d leng_th = %d,malloc_maxsize/malloc_unit = %d\r\n",length,leng_th,malloc_maxsize/malloc_unit);        
       // 查找匹配的位置
 			leng_th = 0;											// 这个变量在之后做计数器
       while(leng_th < (malloc_maxsize/malloc_unit))
@@ -62,15 +62,16 @@ u8* MallocGE(u32  leng_th,u8* mallocArray,u32 malloc_unit,u32 malloc_maxsize,u8*
                                           length --;
                                     }
  #if   DEBUG_Malloc_LEVEL > 1
-                            Malloc_Log("indexMalloc 数据：\r\n");  																	
-                         for(i=0;i<(malloc_maxsize/malloc_unit+7)/8;i++)
+															Malloc_Log("indexMalloc 数据：\r\n");  																	
+															for(i=0;i<(malloc_maxsize/malloc_unit+7)/8;i++)
                               {
-                                    Malloc_Log("indexMalloc[%d] = %x  ",i,indexMalloc[i]);
+                                    Malloc_Log("[%d] = %x  ",i,indexMalloc[i]);
                               }
-                                    Malloc_Log("\r\n");
+                              Malloc_Log("\r\n");
 #endif                                    
                           
                               array += malloc_unit;// 空出停止位
+														
                               return array; // 返回
                         }
                         
@@ -81,6 +82,7 @@ u8* MallocGE(u32  leng_th,u8* mallocArray,u32 malloc_unit,u32 malloc_maxsize,u8*
                   }
                   leng_th ++;
 									if(leng_th == malloc_maxsize/malloc_unit) return 0;
+									
             }
              i ++;  
       }
@@ -102,13 +104,14 @@ u8* CUI_MALLOCMini(u32 leng_th)
 	if(pFirstMini == 0) 										// 没有申请过小内存池
 	{
 		pFirstMini = MallocGE(Malloc_UNIT,(u8*)&CUI_MALLOCArray,Malloc_UNIT,Malloc_MAXSIZE,indexMalloc);			// 在大内存池中申请一块
+
 		if(pFirstMini == 0)return 0;											// 申请失败
 		else
 		{
-			pBuff = pFirstMini;
-			
+			pBuff = pFirstMini;			
 			((MiniMallocStr*)pBuff)->pNext = 0;
 			((MiniMallocStr*)pBuff)->index = 0;
+
 			// 在小内存池中申请一块内存			
 			 pBuff = MallocGE(leng_th,pBuff,Malloc_MINI,Malloc_UNIT-8,(u8*)&(((MiniMallocStr*)pBuff)->index));
 			 if(pBuff == 0) return 0;								// 申请失败
@@ -162,12 +165,11 @@ u8* CUI_MALLOCMini(u32 leng_th)
 void* CUI_MALLOC(u32  leng_th)
 {
 	u8* p;
-	if(leng_th <= (Malloc_MINI*Malloc_MINIINDEX))
+	if(leng_th <= (Malloc_MINI*(Malloc_MINIINDEX - 2)))
 	{
-	
 		p = CUI_MALLOCMini(leng_th);
 		Malloc_Log("已经申请小内存,地址：%#X\r\n",(u32)p);
-//		printf("--------------p = %#x\r\n",(u32)p);
+
 		return (void*)p;
 	}
 	else
