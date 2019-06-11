@@ -37,6 +37,8 @@ u32 GetBigEndDat(u32* buff)
 		bw = sizeof(featureStr) + startpic * feaInf.columns * feaInf.rows;	//偏移文件指针
 		matrixStr* featureMat = matMalloc(num,feaInf.columns * feaInf.rows);//申请保存特征数据矩阵
 		u8* featureBuf = malloc(size_fea);//申请保存特征数据缓存
+		if(featureBuf == 0) ERROR_MAT_LOG("申请保存特征数据缓存失败\r\nfile :%s  rows :%d\r\n",__FILE__, __LINE__);
+
 		CheckError_Handler(f_open (fdst,FILE_TRAIN_FEATURESET,FA_READ));		//打开特征训练集文件		
 		CheckError_Handler(f_lseek(fdst,bw));																//偏移文件指针	
 		CheckError_Handler(f_read(fdst,featureBuf,size_fea,&bw));								//读num张数据			
@@ -49,6 +51,8 @@ u32 GetBigEndDat(u32* buff)
 		bw = sizeof(labelStr) + startpic;																		//偏移文件指针
 		matrixStr* labelMat = matMalloc(num,1);															//申请保存结果数据矩阵
 		u8* labelBuf = malloc(size_fea);																		//申请保存结果数据缓存
+		if(labelBuf == 0) ERROR_MAT_LOG("申请保存结果数据缓存失败\r\nfile :%s  rows :%d\r\n",__FILE__, __LINE__);
+
 		CheckError_Handler(f_open (fdst,FILE_TRAIN_LABELESET,FA_READ));			//打开特征训练集文件		
 		CheckError_Handler(f_lseek(fdst,bw));																//偏移文件指针	
 		CheckError_Handler(f_read(fdst,labelBuf,size_fea,&bw));							//读num张数据	
@@ -56,6 +60,7 @@ u32 GetBigEndDat(u32* buff)
 		minidata->labelData = labelMat;
 		f_close(fdst);
 		_free(labelBuf);
+		
 		minidata->num = num;
 		minidata->columns = feaInf.columns;
 		minidata->rows = feaInf.rows;

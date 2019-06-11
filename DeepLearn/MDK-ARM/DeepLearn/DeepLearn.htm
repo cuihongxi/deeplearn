@@ -3,7 +3,7 @@
 <title>Static Call Graph - [DeepLearn\DeepLearn.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image DeepLearn\DeepLearn.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Jun 09 18:50:28 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Jun 11 16:25:41 2019
 <BR><P>
 <H3>Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -646,10 +646,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[99]"></a>BSP_SD_Init</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, bsp_driver_sd.o(i.BSP_SD_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = BSP_SD_Init &rArr; HAL_SD_Init &rArr; HAL_SD_InitCard &rArr; SD_InitCard &rArr; SDMMC_CmdSetRelAdd &rArr; SDMMC_GetCmdResp6 &rArr; SDIO_GetResponse
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = BSP_SD_Init &rArr; HAL_SD_ConfigWideBusOperation &rArr; SD_WideBus_Enable &rArr; SD_FindSCR &rArr; SDMMC_CmdSendSCR &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_Init
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ConfigWideBusOperation
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ConfigWideBusOperation
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_initialize
 </UL>
@@ -986,14 +986,14 @@ Global Symbols
 <P><STRONG><a name="[c1]"></a>HAL_SD_IRQHandler</STRONG> (Thumb, 438 bytes, Stack size 16 bytes, stm32f4xx_hal_sd.o(i.HAL_SD_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = HAL_SD_IRQHandler &rArr; SD_DMATxAbort &rArr; HAL_SD_GetCardState &rArr; SDMMC_CmdSendStatus &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
-<BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_DMATxAbort
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_TxCpltCallback
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_RxCpltCallback
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_AbortCallback
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_DMATxAbort
 <LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_DMARxAbort
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDMMC_CmdStopTransfer
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDIO_WriteFIFO
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDIO_ReadFIFO
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_TxCpltCallback
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_RxCpltCallback
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_AbortCallback
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ErrorCallback
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort_IT
 </UL>
@@ -1182,7 +1182,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429xx.o(RESET)
 </UL>
-<P><STRONG><a name="[e5]"></a>MinistGetData</STRONG> (Thumb, 512 bytes, Stack size 48 bytes, minist.o(i.MinistGetData))
+<P><STRONG><a name="[e5]"></a>MinistGetData</STRONG> (Thumb, 538 bytes, Stack size 48 bytes, minist.o(i.MinistGetData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 456<LI>Call Chain = MinistGetData &rArr; f_open &rArr; dir_register &rArr; dir_find &rArr; dir_next &rArr; create_chain &rArr; put_fat &rArr; move_window &rArr; sync_window &rArr; disk_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_read
@@ -1246,8 +1246,8 @@ Global Symbols
 <P><STRONG><a name="[be]"></a>SDIO_Init</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, stm32f4xx_ll_sdmmc.o(i.SDIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = SDIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_InitCard
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ConfigWideBusOperation
+<BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ConfigWideBusOperation
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_InitCard
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_InitCard
 </UL>
 
@@ -1446,7 +1446,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7d]"></a>SD_initialize</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, sd_diskio.o(i.SD_initialize))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = SD_initialize &rArr; BSP_SD_Init &rArr; HAL_SD_Init &rArr; HAL_SD_InitCard &rArr; SD_InitCard &rArr; SDMMC_CmdSetRelAdd &rArr; SDMMC_GetCmdResp6 &rArr; SDIO_GetResponse
+<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = SD_initialize &rArr; BSP_SD_Init &rArr; HAL_SD_ConfigWideBusOperation &rArr; SD_WideBus_Enable &rArr; SD_FindSCR &rArr; SDMMC_CmdSendSCR &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
 <BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_Init
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_CheckStatus
@@ -1463,9 +1463,9 @@ Global Symbols
 <P><STRONG><a name="[7f]"></a>SD_read</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, sd_diskio.o(i.SD_read))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = SD_read &rArr; BSP_SD_ReadBlocks_DMA &rArr; HAL_SD_ReadBlocks_DMA &rArr; SDMMC_CmdReadSingleBlock &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_GetCardState
+<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_ReadBlocks_DMA
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_GetCardState
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_ReadBlocks_DMA
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> sd_diskio.o(.constdata)
 </UL>
@@ -1479,9 +1479,9 @@ Global Symbols
 <P><STRONG><a name="[80]"></a>SD_write</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, sd_diskio.o(i.SD_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = SD_write &rArr; BSP_SD_WriteBlocks_DMA &rArr; HAL_SD_WriteBlocks_DMA &rArr; SDMMC_CmdWriteSingleBlock &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_GetCardState
+<BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_WriteBlocks_DMA
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_GetCardState
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_SD_WriteBlocks_DMA
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> sd_diskio.o(.constdata)
 </UL>
@@ -1990,8 +1990,8 @@ Local Symbols
 <P><STRONG><a name="[6a]"></a>SD_DMAReceiveCplt</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, stm32f4xx_hal_sd.o(i.SD_DMAReceiveCplt))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = SD_DMAReceiveCplt &rArr; SDMMC_CmdStopTransfer &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDMMC_CmdStopTransfer
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_RxCpltCallback
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_RxCpltCallback
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDMMC_CmdStopTransfer
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ErrorCallback
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> stm32f4xx_hal_sd.o(i.HAL_SD_ReadBlocks_DMA)
@@ -1999,9 +1999,9 @@ Local Symbols
 <P><STRONG><a name="[69]"></a>SD_DMARxAbort</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, stm32f4xx_hal_sd.o(i.SD_DMARxAbort))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = SD_DMARxAbort &rArr; HAL_SD_GetCardState &rArr; SDMMC_CmdSendStatus &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDMMC_CmdStopTransfer
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_AbortCallback
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDMMC_CmdStopTransfer
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_GetCardState
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_AbortCallback
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ErrorCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_IRQHandler
@@ -2014,9 +2014,9 @@ Local Symbols
 <P><STRONG><a name="[68]"></a>SD_DMATxAbort</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, stm32f4xx_hal_sd.o(i.SD_DMATxAbort))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = SD_DMATxAbort &rArr; HAL_SD_GetCardState &rArr; SDMMC_CmdSendStatus &rArr; SDMMC_GetCmdResp1 &rArr; SDIO_GetResponse
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDMMC_CmdStopTransfer
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_AbortCallback
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SDMMC_CmdStopTransfer
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_GetCardState
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_AbortCallback
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_ErrorCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SD_IRQHandler

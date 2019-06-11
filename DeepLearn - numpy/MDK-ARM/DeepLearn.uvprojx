@@ -392,14 +392,24 @@
           <GroupName>numpy</GroupName>
           <Files>
             <File>
+              <FileName>matrix.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\MyFun\NUMPY\matrix.c</FilePath>
+            </File>
+            <File>
+              <FileName>matrix.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\MyFun\NUMPY\matrix.h</FilePath>
+            </File>
+            <File>
               <FileName>numpy.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MyFun\NUMPY\numpy.c</FilePath>
             </File>
             <File>
-              <FileName>matrix.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\MyFun\NUMPY\matrix.c</FilePath>
+              <FileName>numpy.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\MyFun\NUMPY\numpy.h</FilePath>
             </File>
             <File>
               <FileName>GradientDescent.c</FileName>
@@ -600,6 +610,16 @@
               <FileName>ff_gen_drv.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Middlewares/Third_Party/FatFs/src/ff_gen_drv.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>UpdateLog</GroupName>
+          <Files>
+            <File>
+              <FileName>UpdateLog.txt</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\UpdateLog.txt</FilePath>
             </File>
           </Files>
         </Group>
