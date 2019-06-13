@@ -18,6 +18,7 @@ void numpy_Init(numpy* np)
 	np->alg = matAlgorithm;
 	np->iteraAlg = matIteraAlgorithm;
 	np->sigmoid = matSigmoid;
-	
+	np->filter = matLabelFilter;
+	np->shape = matShape;
 }
 

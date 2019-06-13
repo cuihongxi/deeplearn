@@ -24,9 +24,12 @@ typedef struct
 	matrixStr* (*cutOut)(matrixStr* source,Axis axis,u32 start,u32 end); 	// 截取一段矩阵
 	u32 (*len)(matrixStr* mat);													// 获取矩阵的长度
 	matrixStr* (*sub)(matrixStr* a,matrixStr* b);				// 矩阵减法
-	void (*alg)(matrixStr* mat,float num,Algorithm alg);// 矩阵与num的运算
+	void (*alg)(matrixStr* mat,matDAT num,Algorithm alg);// 矩阵与num的运算
 	void (*iteraAlg)(matrixStr* a,matrixStr* b,Algorithm alg);// 矩阵与矩阵迭代的运算，不产生新空间，结果覆盖第一个矩阵
 	matrixStr* (*sigmoid)(matrixStr* feature,matrixStr* weight);		//矩阵sigmoid函数
+	matrixStr* (*filter)(matrixStr* label);							// label过滤器
+	
+	void (*shape)(matrixStr* mat);											//获取矩阵的形状
 }numpy;	//仿Python的numpy
 
 

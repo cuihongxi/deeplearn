@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F429xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\..\MyFun\NUMPY;..\..\MyFun;..\..\MyFun\malloc;../Middlewares/Third_Party/FatFs/src;..\..\MyFun\minist_read</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\..\MyFun\NUMPY;..\..\MyFun;..\..\MyFun\malloc;../Middlewares/Third_Party/FatFs/src;..\..\MyFun\minist_read;..\..\MyFun\GradientDescent</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -405,6 +405,11 @@
               <FileName>minist.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\MyFun\minist_read\minist.c</FilePath>
+            </File>
+            <File>
+              <FileName>GradientDescent.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\MyFun\GradientDescent\GradientDescent.c</FilePath>
             </File>
           </Files>
         </Group>

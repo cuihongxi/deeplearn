@@ -58,8 +58,8 @@
 /* USER CODE BEGIN Includes */
 #include "matrix.h"
 #include "numpy.h"
-#include "minist.h"
-
+#include "MINIST.H"
+#include "GradientDescent.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -120,18 +120,40 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	printf("\r\nstart:\r\n");
 	
-	printf("___________________________\r\n");
+		numpy np;
+		numpy_Init(&np);
+		float learnRate = 0.01;	
+	matrixStr* weight = np.ones(785,10);	//代表10个数的weight
+	for(u8 i = 0;i<10;i++)
+	{
+		miniData*  mini = MinistGetData(i,i+9);		
+		printf("-----label--%d-------\r\n",i);
+		np.printMat(mini->labelData);
+		
+		weight = TrainMinist(&np,mini->featureData,mini->labelData,weight,learnRate,200);
+		printf("-----weight---------\r\n");
+		np.printMat(weight);
+
+		_free((u8*)(mini->featureData));
+		_free((u8*)mini->labelData);
+		_free(mini);
 	
+	}
+
 	
-	miniData*  mini = MinistGetData(10,12);	
-	
-	numpy np;
-	numpy_Init(&np);
-	
-	printf("\r\n***********featureData********\r\n");
-	np.printMat(mini->featureData);
-	printf("*******labelData************\r\n");
+	miniData*  mini = MinistGetData(410,5);	
+		printf("-----label---------\r\n");
 	np.printMat(mini->labelData);
+	
+
+	
+	matrixStr* test = Test(matmeth01,mini->featureData,weight);
+	printf("-----test---------\r\n");
+	np.printMat(test);
+	
+	//np.printMat(mini->featureData);
+
+	//np.printMat(mini->labelData);
 	
   /* USER CODE END 2 */
 

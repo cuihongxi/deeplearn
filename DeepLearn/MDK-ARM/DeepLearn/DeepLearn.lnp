@@ -3,6 +3,7 @@
 "deeplearn\numpy.o"
 "deeplearn\matrix.o"
 "deeplearn\minist.o"
+"deeplearn\gradientdescent.o"
 "deeplearn\cui_malloc.o"
 "deeplearn\main.o"
 "deeplearn\gpio.o"

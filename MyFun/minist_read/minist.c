@@ -72,8 +72,19 @@ u32 GetBigEndDat(u32* buff)
 	}
 
 
-
-
+//保存weight数据
+void SaveWeight(matrixStr* weightDat,const char*  fileName)
+{
+		FATFS*	fs = malloc(sizeof(FATFS));	
+		FIL*	fdst =  malloc(sizeof(FIL));
+		UINT bw = 0;
+		f_mount(fs,"0:",1);
+		CheckError_Handler(f_open (fdst,fileName,FA_WRITE|FA_OPEN_ALWAYS));	//打开文件
+		CheckError_Handler(f_write(fdst,(u8*)weightDat+sizeof(matrixStr),weightDat->rows*weightDat->columns,&bw));	//写入数据
+		f_close(fdst);			
+		_free(fs);
+		_free(fdst);
+}
 
 
 

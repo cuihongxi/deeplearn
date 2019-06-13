@@ -49,6 +49,6 @@ typedef struct{
 */
 
 miniData* MinistGetData(u32 start ,u32 num);
-
+void SaveWeight(matrixStr* weightDat,const char*  fileName);//±£´æweightÊý¾Ý
 
 #endif

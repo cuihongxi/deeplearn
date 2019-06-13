@@ -332,7 +332,7 @@ matrixStr* matSub(matrixStr* a,matrixStr* b)
 }
 
 //矩阵与num的运算
-void matAlgorithm(matrixStr* mat,float num,Algorithm alg)
+void matAlgorithm(matrixStr* mat,matDAT num,Algorithm alg)
 {
 
 		u32 rows = 0;	// 行
@@ -414,7 +414,7 @@ matrixStr* matZoom(matrixStr* mat_sorce,float xtimes,float ytimes)
 }
 
 //sigmoid函数
-float sigmoid(float x)
+matDAT sigmoid(matDAT x)
 {
     return (1 / (1 + exp(-x)));
 }
@@ -448,31 +448,41 @@ matDAT matAddexp(matrixStr* mat,u32 rows)
 //	printf("dat = %f\r\n",dat);
 	return dat;
 }
-//softmax运算
-matrixStr* matSoftmax(matrixStr* feature,matrixStr* weight)
+
+//columns列取exp对数相加,返回和
+matDAT matAddColumnsExp(matrixStr* mat,u32 columns)
 {
-		matrixStr* mat = matDot(feature,weight);
-		matrixStr* matallexp = matMalloc(mat->rows,1);	//保存exp所有之和
-	
-		u32 rows = 0;	// 行
-		u32 columns = 0;	// 列
-
-			for(rows = 0; rows < matallexp->rows; rows ++)
-			{
-				*Get_MatAddr(matallexp,rows,0) = matAddexp(mat,rows);
-			}
-
-	
-		for(rows = 0; rows < mat->rows; rows ++)
-		{
-			for(columns = 0; columns < mat->columns; columns ++)
-			{
-			//	printf("exp(Get_Mat(mat,rows,columns)) = %f,Get_Mat(matallexp,0,columns) = %f\r\n",exp(Get_Mat(mat,rows,columns)),Get_Mat(matallexp,0,columns));
-				*((matDAT*)((u8*)mat+sizeof(matrixStr)) + rows*mat->columns + columns) = exp(Get_Mat(mat,rows,columns))/Get_Mat(matallexp,rows,0);
-			//	printf("exp(Get_Mat(mat,rows,columns))/Get_Mat(matallexp,1,columns)= %f\r\n",*((matDAT*)((u8*)mat+sizeof(matrixStr)) + rows*mat->columns + columns));
-					
-			}		
-		}
-		_free(matallexp);
-	return mat;
+	matDAT dat = 0;
+	for(u32 i =0;i<mat->rows;i++)
+	{
+		dat += exp(Get_Mat(mat,i,columns));
+	}
+	return dat;
 }
+
+
+
+
+
+//label过滤器,变成0~9的矩阵
+matrixStr* matLabelFilter(matrixStr* label)
+{
+		matrixStr* mat = matrix_Zero(label->rows,10);	//一个全0的矩阵
+	//相同则在相应位置赋值1
+		for(u32 rows = 0; rows < mat->rows; rows ++)
+		{
+			*Get_MatAddr(mat,rows,Get_Mat(label,rows,0)) = 1;					
+		}
+		return mat;
+}
+
+//获取矩阵的形状
+void matShape(matrixStr* mat)
+{
+	MAT_LOG("(%d,%d)\r\n",mat->rows,mat->columns);
+}
+
+
+
+
+

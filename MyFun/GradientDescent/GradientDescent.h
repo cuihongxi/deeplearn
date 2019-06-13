@@ -20,8 +20,9 @@ matrixStr* GradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* weight,
 matrixStr* LogicGradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* weight,matrixStr* label);//Âß¼­»Ø¹éÌÝ¶ÈÏÂ½µËã·¨
 
 matrixStr* Train(matrixStr* (*gradientDescent)(numpy*,matrixStr*,matrixStr*,matrixStr*),\
-numpy* np,matrixStr* feature,matrixStr* label,float learnRate,u32 times);			//ÑµÁ·
+numpy* np,matrixStr* feature,matrixStr* label,matrixStr* weight,float learnRate,u32 times);			//ÑµÁ·
 
+matrixStr* TrainMinist(numpy* np,matrixStr* feature,matrixStr* label,matrixStr* weight,float learnRate,u32 times);//ÑµÁ·MINISTÊý¾Ý¼¯
 matrixStr* Test(matrixStr*(*math)(matrixStr*,matrixStr*),matrixStr*feature,matrixStr* weight);//²âÊÔ
-
+matrixStr* matmeth01(matrixStr* feature,matrixStr* weight);
 #endif
