@@ -27,11 +27,25 @@ Project File Date:  06/11/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'DeepLearn'
-compiling main.c...
-linking...
-Program Size: Code=16448 RO-data=560 RW-data=44 ZI-data=161004  
-FromELF: creating hex file...
-"DeepLearn\DeepLearn.axf" - 0 Error(s), 0 Warning(s).
+compiling matrix_2.c...
+..\..\MyFun\NUMPY\matrix_2.c(416): error:  #20: identifier "toMat" is undefined
+  	return toMat;
+..\..\MyFun\NUMPY\matrix_2.c(421): error:  #20: identifier "matDAT" is undefined
+  matDAT matAddexp(matrixStr* mat,u32 rows)
+..\..\MyFun\NUMPY\matrix_2.c(423): error:  #20: identifier "matDAT" is undefined
+  	matDAT dat = 0;
+..\..\MyFun\NUMPY\matrix_2.c(462): error:  #20: identifier "matDAT" is undefined
+  				*((matDAT*)((u8*)mat+sizeof(matrixStr)) + rows*mat->columns + columns) = exp(Get_Mat(mat,rows,columns))/Get_Mat(matallexp,rows,0);			
+..\..\MyFun\NUMPY\matrix_2.c(462): error:  #29: expected an expression
+  				*((matDAT*)((u8*)mat+sizeof(matrixStr)) + rows*mat->columns + columns) = exp(Get_Mat(mat,rows,columns))/Get_Mat(matallexp,rows,0);			
+..\..\MyFun\NUMPY\matrix_2.c(462): warning:  #223-D: function "Get_Mat" declared implicitly
+  				*((matDAT*)((u8*)mat+sizeof(matrixStr)) + rows*mat->columns + columns) = exp(Get_Mat(mat,rows,columns))/Get_Mat(matallexp,rows,0);			
+..\..\MyFun\NUMPY\matrix_2.c(465): error:  #29: expected an expression
+  					case _INT:		*(float*)Get_MatAddr(mat_2,rows,columns); = exp(*(int*)Get_MatAddr(mat,rows,columns))/ (*(float*)Get_MatAddr(matallexp,rows,0));	
+..\..\MyFun\NUMPY\matrix_2.c(467): error:  #29: expected an expression
+  					case _FLOAT:	*(float*)Get_MatAddr(mat_2,rows,columns); = exp(*(float*)Get_MatAddr(mat,rows,columns))/ (*(float*)Get_MatAddr(matallexp,rows,0));
+..\..\MyFun\NUMPY\matrix_2.c: 1 warning, 7 errors
+"DeepLearn\DeepLearn.axf" - 7 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,7 +68,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.1.1
-Build Time Elapsed:  00:00:08
+Target not created.
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

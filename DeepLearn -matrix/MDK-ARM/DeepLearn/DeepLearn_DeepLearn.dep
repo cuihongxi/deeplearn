@@ -1,7 +1,7 @@
 Dependencies for Project 'DeepLearn', Target 'DeepLearn': (DO NOT MODIFY !)
 F (startup_stm32f429xx.s)(0x5CFB4D73)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_DeepLearn-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 525" --pd "_RTE_ SETA 1" --pd "STM32F429xx SETA 1"--list startup_stm32f429xx.lst --xref -o deeplearn\startup_stm32f429xx.o --depend deeplearn\startup_stm32f429xx.d)
-F (..\..\MyFun\NUMPY\matrix_2.c)(0x5CFFBE5B)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\MyFun\NUMPY -I ..\..\MyFun -I ..\..\MyFun\malloc -I ../Middlewares/Third_Party/FatFs/src -I ..\..\MyFun\GradientDescent-I.\RTE\_DeepLearn-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o deeplearn\matrix_2.o --omf_browse deeplearn\matrix_2.crf --depend deeplearn\matrix_2.d)
-I (..\..\MyFun\NUMPY\matrix_2.H)(0x5CFFBE5B)
+F (..\..\MyFun\NUMPY\matrix_2.c)(0x5D01CA1D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\MyFun\NUMPY -I ..\..\MyFun -I ..\..\MyFun\malloc -I ../Middlewares/Third_Party/FatFs/src -I ..\..\MyFun\GradientDescent-I.\RTE\_DeepLearn-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o deeplearn\matrix_2.o --omf_browse deeplearn\matrix_2.crf --depend deeplearn\matrix_2.d)
+I (..\..\MyFun\NUMPY\matrix_2.H)(0x5D01C9D9)
 I (..\..\MyFun\udata.h)(0x5CFC65BB)
 I (..\..\MyFun\malloc\cui_malloc.h)(0x5CFCC147)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
@@ -9,7 +9,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.H)(0x599ECD2E)
 F (..\..\MyFun\malloc\CUI_MALLOC.C)(0x5CFCC15B)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\MyFun\NUMPY -I ..\..\MyFun -I ..\..\MyFun\malloc -I ../Middlewares/Third_Party/FatFs/src -I ..\..\MyFun\GradientDescent-I.\RTE\_DeepLearn-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o deeplearn\cui_malloc.o --omf_browse deeplearn\cui_malloc.crf --depend deeplearn\cui_malloc.d)
 I (..\..\MyFun\malloc\CUI_MALLOC.H)(0x5CFCC147)
 I (..\..\MyFun\UDATA.H)(0x5CFC65BB)
-F (../Src/main.c)(0x5CFFBF4E)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\MyFun\NUMPY -I ..\..\MyFun -I ..\..\MyFun\malloc -I ../Middlewares/Third_Party/FatFs/src -I ..\..\MyFun\GradientDescent-I.\RTE\_DeepLearn-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o deeplearn\main.o --omf_browse deeplearn\main.crf --depend deeplearn\main.d)
+F (../Src/main.c)(0x5D01BC7D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\MyFun\NUMPY -I ..\..\MyFun -I ..\..\MyFun\malloc -I ../Middlewares/Third_Party/FatFs/src -I ..\..\MyFun\GradientDescent-I.\RTE\_DeepLearn-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o deeplearn\main.o --omf_browse deeplearn\main.crf --depend deeplearn\main.d)
 I (../Inc/main.h)(0x5CFB4D6F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5ABA2E49)
 I (../Inc/stm32f4xx_hal_conf.h)(0x5CFB4D6F)
@@ -53,7 +53,7 @@ I (../Inc/sd_diskio.h)(0x5CFB4D6C)
 I (../Inc/sdio.h)(0x5CFB4D6D)
 I (../Inc/usart.h)(0x5CFB4D6E)
 I (../Inc/gpio.h)(0x5CFB4D69)
-I (..\..\MyFun\NUMPY\matrix_2.h)(0x5CFFBE5B)
+I (..\..\MyFun\NUMPY\matrix_2.h)(0x5D01C9D9)
 I (..\..\MyFun\udata.h)(0x5CFC65BB)
 I (..\..\MyFun\malloc\cui_malloc.h)(0x5CFCC147)
 F (../Src/gpio.c)(0x5CFB4D69)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\..\MyFun\NUMPY -I ..\..\MyFun -I ..\..\MyFun\malloc -I ../Middlewares/Third_Party/FatFs/src -I ..\..\MyFun\GradientDescent-I.\RTE\_DeepLearn-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F429xx -DUSE_HAL_DRIVER -DSTM32F429xx-o deeplearn\gpio.o --omf_browse deeplearn\gpio.crf --depend deeplearn\gpio.d)
@@ -1105,4 +1105,4 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h)(0x5ABA2E4A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5ABA2E49)
 I (../Inc/bsp_driver_sd.h)(0x5CFB4D6C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
-F (..\..\UpdateLog.txt)(0x5CFF07FF)()
+F (..\..\UpdateLog.txt)(0x5CFFC112)()

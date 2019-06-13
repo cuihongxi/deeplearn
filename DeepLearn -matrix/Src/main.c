@@ -147,11 +147,26 @@ int main(void)
 	matApendDat(mat2,a2);
 	PrintMat(mat2);
 
-	matrixStr* mat3 = matAdd(mat0,mat2);
-	PrintMat(mat3);
-
+	matIteraAlgorithm(mat0,mat2,SUB);
+	
+	PrintMat(mat0);
+	PrintMat(mat1);
+	PrintMat(mat2);
+	
 	matrixStr* mat4 = matDot(mat1,mat2);
 	PrintMat(mat4);
+printf("生成mat2的转置");
+	matrixStr* mat5 = matrix_T(mat2);
+	PrintMat(mat5);
+	printf("生成1列1");
+	matrixStr* mat6 = matrix_One(mat2->rows,1);
+	PrintMat(mat6);
+	matrixStr* mat7 = matrix_Append(mat2,mat6,vertical);
+	PrintMat(mat7);
+	
+	matrixStr* mat8 = matrix_CutOut(mat2,vertical,0,0);
+	PrintMat(mat8);
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
