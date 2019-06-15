@@ -20,5 +20,6 @@ void numpy_Init(numpy* np)
 	np->sigmoid = matSigmoid;
 	np->filter = matLabelFilter;
 	np->shape = matShape;
+	np->dot_T = matDot_T;
 }
 

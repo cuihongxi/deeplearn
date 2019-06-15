@@ -28,8 +28,8 @@ typedef struct
 	void (*iteraAlg)(matrixStr* a,matrixStr* b,Algorithm alg);// 矩阵与矩阵迭代的运算，不产生新空间，结果覆盖第一个矩阵
 	matrixStr* (*sigmoid)(matrixStr* feature,matrixStr* weight);		//矩阵sigmoid函数
 	matrixStr* (*filter)(matrixStr* label);							// label过滤器
-	
 	void (*shape)(matrixStr* mat);											//获取矩阵的形状
+	matrixStr* (*dot_T)(matrixStr* a,matrixStr* b);//矩阵a以转置的形式进行乘法运算
 }numpy;	//仿Python的numpy
 
 

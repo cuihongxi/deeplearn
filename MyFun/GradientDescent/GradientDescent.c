@@ -7,16 +7,13 @@
 matrixStr* GradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* weight,matrixStr* label)
 	{
 		matrixStr* result;
-		matrixStr* featureMatrix_T = np->T(featureMatrix);
 		matrixStr* dot = np->dot(featureMatrix,weight);
-		matrixStr* sub = np->sub(dot,label);
-		result = np->dot(featureMatrix_T,sub);
+		np->iteraAlg(dot,label,sub);			//与结果相减,覆盖掉dot	
+		result = np->dot_T(featureMatrix,dot);
     np->alg(result,featureMatrix->rows,divi);
 		np->alg(result,2,mul);
 		
-		_free(featureMatrix_T);
 		_free(dot);
-		_free(sub);
     return result ;  //结果矩阵，[0][0]是对b的导数，[1][0]是对m的导数	
 	}
 	
@@ -25,19 +22,12 @@ matrixStr* GradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* weight,
 matrixStr* LogicGradientDescent(numpy* np,matrixStr* featureMatrix,matrixStr* weight,matrixStr* label)
 	{
 		matrixStr* result;
-		matrixStr* featureMatrix_T = np->T(featureMatrix);
 		matrixStr* dot = np->sigmoid(featureMatrix,weight);	
-
-		matrixStr* sub = np->sub(dot,label);				//与结果相减
-
-		result = np->dot(featureMatrix_T,sub);
+		np->iteraAlg(dot,label,sub);			//与结果相减,覆盖掉dot	
+		result = np->dot_T(featureMatrix,dot);
     np->alg(result,featureMatrix->rows,divi);
-		np->alg(result,2,mul);
-		
-		_free(featureMatrix_T);
+		np->alg(result,2,mul);	
 		_free(dot);
-		_free(sub);
-		_free(label);
 
     return result ;  //结果矩阵，[0][0]是对b的导数，[1][0]是对m的导数	
 	}
@@ -73,8 +63,6 @@ matrixStr* Train(matrixStr* (*gradientDescent)(numpy*,matrixStr*,matrixStr*,matr
 matrixStr* TrainMinist(numpy* np,matrixStr* feature,matrixStr* label,matrixStr* weight,float learnRate,u32 times)
 {
 	matrixStr* labelfilter = np->filter(label);						// 对label进行逻辑值处理，产生逻辑矩阵
-//	matrixStr* weight = np->ones(feature->columns+1,10);	//代表10个数的weight
-
 	Train(LogicGradientDescent,np,feature,labelfilter,weight,learnRate,times);
 	_free(labelfilter);
 	return weight;
@@ -173,7 +161,9 @@ matrixStr* Test(matrixStr*(*math)(matrixStr*,matrixStr*),matrixStr*feature,matri
 	matrixStr* mat_one = matrix_One(feature->rows,1);
 	matrixStr* featureMatrix = matrix_Append(feature,mat_one,vertical);
 	_free(mat_one);
-	return math(featureMatrix,weight);
+	matrixStr* test = math(featureMatrix,weight);
+	_free(featureMatrix);
+	return test;
 }
 
 

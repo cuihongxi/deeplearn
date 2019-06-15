@@ -48,7 +48,8 @@ typedef struct{
 函数
 */
 
-miniData* MinistGetData(u32 start ,u32 num);
-void SaveWeight(matrixStr* weightDat,const char*  fileName);//保存weight数据
+miniData* MinistGetData(u32 start ,u32 num);	//获得特征集数据
+miniData* MinistGetTestData(u32 startpic ,u32 num);	//获得测试集数据
+//void SaveWeight(matrixStr* weightDat,const char*  fileName);//保存weight数据
 
 #endif

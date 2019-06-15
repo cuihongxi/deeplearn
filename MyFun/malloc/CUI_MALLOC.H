@@ -35,6 +35,14 @@
 #define Malloc_Log(...)   
 #endif                             
 
+#define CheckError_MALLOC(d) 	do{\
+	if(d == 0)\
+	{\
+			printf("malloc Error:\r\nfile :%s  line :%d\r\n",__FILE__, __LINE__);\
+	}\
+}while(0)
+
+
 
 // 小字节内存池数据结构
 typedef struct{

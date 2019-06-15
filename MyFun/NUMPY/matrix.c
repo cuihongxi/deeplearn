@@ -9,7 +9,7 @@ matrixStr* matMalloc(u32 rows,u32 columns)
 	matrixStr* mat = (matrixStr*)malloc((rows*columns)*(sizeof(matDAT)) + sizeof(matrixStr));
 	if(mat == 0) 
 	{
-		ERROR_MAT_LOG("ERROR:动态内存申请失败\r\n");
+		ERROR_MAT_LOG("ERROR:动态内存申请失败,size= %d\r\n",(rows*columns)*(sizeof(matDAT)) + sizeof(matrixStr));
 		return 0;
 	}else
 	{
@@ -62,13 +62,13 @@ void PrintMat(matrixStr* mat)
 	MAT_LOG("{\r\n");
 	for(rows = 0; rows < mat->rows; rows ++)
 	{
-		MAT_LOG("[");
+		MAT_LOG("	");
 		for(columns = 0; columns < mat->columns; columns ++)
 		{
 			
 			MAT_PRINT;
 		}
-		MAT_LOG("],\r\n");
+		MAT_LOG("\r\n");
 	}
 	MAT_LOG("}\r\n");
 }
@@ -87,7 +87,7 @@ matDAT* Get_MatAddr(matrixStr* mat,u32 rows,u32 columns)
 {
 	if(rows < mat->rows && columns < mat->columns )
 		return ((matDAT*)((u8*)mat+sizeof(matrixStr))) + rows*mat->columns + columns;
-	else return (matDAT*)-1;
+	else return (matDAT*)0;
 	
 }
 
@@ -112,7 +112,7 @@ matrixStr* matAdd(matrixStr* a,matrixStr* b)
 		return mat;
 	}else ERROR_MAT_LOG("错误：两个矩阵行列数不相等!\r\n");
 
-	return (matrixStr*)-1;
+	return (matrixStr*)0;
 }
 
 //相乘，相加 ,a的第几行跟b的第几列相乘相加
@@ -148,7 +148,7 @@ matrixStr* matDot(matrixStr* a,matrixStr* b)
 		}
 		return mat;
 	}else ERROR_MAT_LOG("错误：A的列数与B的行数不相等，不能做乘法\r\n");
-	return (matrixStr*)-1;
+	return (matrixStr*)0;
 }
 
 //返回矩阵的转置
@@ -482,7 +482,53 @@ void matShape(matrixStr* mat)
 	MAT_LOG("(%d,%d)\r\n",mat->rows,mat->columns);
 }
 
+//相乘，相加 ,a的第几列跟b的第几列相乘相加
+// 返回相乘的结果
+matDAT GetMat_MultAddColumn(matrixStr* a,matrixStr* b,u32 acolumn,u32 bcolumn)
+{
+	matDAT dat = 0;
+	for(u32 i=0;i<a->rows;i++)
+	{	
+		dat += (matDAT)Get_Mat(a,i,acolumn) *  (matDAT)Get_Mat(b,i,bcolumn);
+	}
 
+	return dat;
+}
 
+//矩阵a以转置的形式进行乘法运算
+matrixStr* matDot_T(matrixStr* a,matrixStr* b)
+{
+	if( a->rows == b->rows)
+	{
+		u32 rows = 0;
+		u32 columns = 0;
+		matrixStr* mat = matMalloc(a->columns,b->columns);
+		for(rows = 0; rows < mat->rows; rows ++)
+		{
+			for(columns = 0; columns < mat->columns; columns ++)
+			{
+				*Get_MatAddr(mat,rows,columns) = GetMat_MultAddColumn(a,b,rows,columns);
+			}		
+		}
+		return mat;
+	}else ERROR_MAT_LOG("错误：A的行数与B的行数不相等，不能做转置乘法\r\n");
+	return (matrixStr*)0;
+}
+
+//对数据的行进行排序，返回列数
+u8 GetListMax(matrixStr* mat,u8 row)
+{
+	u8 max = 0;
+	matDAT dat = 0;
+	for(u8 i=0;i < mat->columns;i++)
+	{
+			if(dat<Get_Mat(mat,row,i)) 
+			{
+				dat = Get_Mat(mat,row,i);
+				max = i;
+			}
+	}
+	return max;
+}
 
 

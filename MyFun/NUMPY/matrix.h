@@ -83,6 +83,7 @@ matrixStr* matSoftmax(matrixStr* feature,matrixStr* weight);				// softmax运算
 matrixStr* matLabelFilter(matrixStr* label);							// label过滤器
 void matShape(matrixStr* mat);//获取矩阵的形状
 
-
+matrixStr* matDot_T(matrixStr* a,matrixStr* b);//矩阵a以转置的形式进行乘法运算
+u8 GetListMax(matrixStr* mat,u8 row);//对数据的行进行排序，返回列数
 #endif
 

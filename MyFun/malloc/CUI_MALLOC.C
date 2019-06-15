@@ -198,7 +198,7 @@ Flag_Status Free_MallocGE(u8* Malloc,u8* mallocArray,u32 malloc_unit,u32 malloc_
             i = (Malloc - mallocArray)/malloc_unit/8;
             j = (Malloc - mallocArray)/malloc_unit%8; 
  
-      Malloc_Log("Free Malloc :indexMalloc[%d].[%d]\r\n",i,j);
+      Malloc_Log("Free Malloc :[%d].[%d]\r\n",i,j);
       while((indexMalloc[i] &(0x80>>j)) != 0 && i < ((malloc_maxsize/malloc_unit+7)/8))
       {
             indexMalloc[i]  &= (~(0x80>>j));
@@ -214,7 +214,7 @@ Flag_Status Free_MallocGE(u8* Malloc,u8* mallocArray,u32 malloc_unit,u32 malloc_
                           Malloc_Log("ÊÍ·ÅindexMalloc Êý¾Ý£º\r\n");        
                          for(u32 m=0;m<(malloc_maxsize/malloc_unit+7)/8;m++)
                               {
-                                    Malloc_Log("indexMalloc[%d] = %x  ",m,indexMalloc[m]);
+                                    Malloc_Log("indexMalloc[%d] = %x	",m,indexMalloc[m]);
                               }
                                     Malloc_Log("\r\n");
 #endif       
